@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ma liste de courses</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <p class="eyebrow">MON ORGANISATION AU QUOTIDIEN</p>
+        <h1>Ma liste de courses<span aria-hidden="true">.</span></h1>
+        <p class="intro">
+          Préparez vos achats et suivez les produits déjà achetés.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="titre-ajout">
+        <div class="section-heading">
+          <span class="section-number" aria-hidden="true">01</span>
+          <div>
+            <h2 id="titre-ajout">Ajouter un produit</h2>
+            <p>Une nouvelle ligne commence au statut « À acheter ».</p>
+          </div>
+        </div>
+        <form id="formulaire-produit" novalidate>
+          <div class="field field-name">
+            <label for="nom">Nom du produit</label>
+            <input
+              id="nom"
+              name="nom"
+              type="text"
+              placeholder="Ex. : Lait entier"
+              required
+              aria-describedby="erreur-nom"
+            />
+            <p id="erreur-nom" class="error" aria-live="polite"></p>
+          </div>
+          <div class="field field-price">
+            <label for="prix">Prix du produit en DH</label>
+            <input
+              id="prix"
+              name="prix"
+              type="number"
+              min="0.01"
+              step="0.01"
+              placeholder="Ex. : 8.50"
+              required
+              aria-describedby="erreur-prix"
+            />
+            <p id="erreur-prix" class="error" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="button button-primary">
+            Ajouter le produit
+          </button>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="titre-liste">
+        <div class="section-heading">
+          <span class="section-number" aria-hidden="true">02</span>
+          <div>
+            <h2 id="titre-liste">Les produits de ma liste</h2>
+            <p>Retrouvez vos produits et mettez à jour leur statut.</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="field">
+            <label for="recherche">Rechercher par nom</label>
+            <input
+              id="recherche"
+              type="search"
+              placeholder="Saisissez un nom…"
+            />
+          </div>
+          <div class="field">
+            <label for="filtre-statut">Afficher</label>
+            <select id="filtre-statut">
+              <option value="tous">Tous les produits</option>
+              <option value="À acheter">À acheter</option>
+              <option value="Acheté">Achetés</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="tri-prix">Trier par prix</label>
+            <select id="tri-prix">
+              <option value="initial">Ordre initial</option>
+              <option value="croissant">Prix croissant</option>
+              <option value="decroissant">Prix décroissant</option>
+            </select>
+          </div>
+          <button
+            id="reinitialiser-criteres"
+            type="button"
+            class="button button-reset"
+          >
+            Réinitialiser
+          </button>
+        </div>
+        <p id="message" class="message" role="status" aria-live="polite"></p>
+        <p id="nombre-resultats" class="result-count" aria-live="polite"></p>
+        <ul id="liste-produits" class="products" aria-label="Produits"></ul>
+        <div id="etat-vide" class="empty-state" hidden>
+          <h3>Aucun produit à afficher</h3>
+          <p>Ajoutez un produit ou modifiez les critères de recherche.</p>
+        </div>
+      </section>
+      <footer class="page-footer">
+        Ma liste de courses · Prix exprimés en dirhams
+      </footer>
+    </main>
+  </body>
+</html>

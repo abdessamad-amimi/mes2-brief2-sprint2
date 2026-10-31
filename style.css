@@ -1,0 +1,369 @@
+/* CSS fourni : réutilisez ces classes pour les éléments créés en JavaScript. */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f5f6f2;
+  color: #25392f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+select {
+  cursor: pointer;
+}
+[hidden] {
+  display: none !important;
+}
+.container {
+  width: min(940px, calc(100% - 40px));
+  margin: 44px auto 28px;
+}
+.page-header {
+  margin-bottom: 28px;
+}
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #52715e;
+  letter-spacing: 1.8px;
+}
+h1 {
+  margin: 0 0 10px;
+  font-size: 38px;
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+}
+h1 span {
+  color: #39805c;
+}
+.intro {
+  margin: 0;
+  color: #67776d;
+}
+.panel {
+  margin-bottom: 22px;
+  padding: 26px;
+  border: 1px solid #dfe5dc;
+  border-radius: 14px;
+  background: white;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 23px;
+}
+.section-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #dce9df;
+  border-radius: 10px;
+  background: #eff6ef;
+  color: #31734b;
+  font-size: 12px;
+  font-weight: 700;
+}
+h2 {
+  margin: 0 0 4px;
+  font-size: 19px;
+}
+.section-heading p {
+  margin: 0;
+  color: #697a6d;
+  font-size: 12px;
+}
+form {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+.field {
+  min-width: 0;
+}
+.field-name {
+  flex: 1;
+}
+.field-price {
+  width: 180px;
+}
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+input,
+select {
+  width: 100%;
+  min-height: 45px;
+  padding: 10px 12px;
+  border: 1px solid #cbd7cc;
+  border-radius: 7px;
+  background: white;
+  color: #25392f;
+}
+input::placeholder {
+  color: #7a877e;
+}
+input:focus,
+select:focus {
+  outline: 3px solid #e1eee3;
+  border-color: #3d7b55;
+}
+input[aria-invalid="true"] {
+  border-color: #b53943;
+}
+.error {
+  margin: 6px 0 0;
+  color: #a72e3d;
+  font-size: 12px;
+}
+.error:empty {
+  display: none;
+}
+.button {
+  min-height: 39px;
+  padding: 9px 13px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 12px;
+}
+.button-primary {
+  min-height: 45px;
+  margin-top: 25px;
+  background: #2d6d46;
+  color: white;
+}
+.button-primary:hover {
+  background: #245638;
+}
+.button-status {
+  background: #edf5ec;
+  border-color: #d4e5d3;
+  color: #2e643e;
+}
+.button-status:hover {
+  background: #e2eddf;
+}
+.button-delete {
+  background: white;
+  border-color: #e9cfd0;
+  color: #a23540;
+}
+.button-delete:hover {
+  background: #fff3f3;
+}
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 14px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid #e8ece5;
+}
+.message {
+  margin: 0;
+  color: #2d6d46;
+  font-size: 13px;
+}
+.message:not(:empty) {
+  margin-top: 14px;
+}
+.result-count {
+  margin: 15px 0 5px;
+  color: #748075;
+  font-size: 11px;
+}
+.products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid #e8ece5;
+}
+.product:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.product-marker {
+  width: 11px;
+  height: 11px;
+  border: 2px solid #9ab49a;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.product-name {
+  margin: 0 0 5px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.product-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.product-price {
+  color: #546a59;
+  font-size: 12px;
+  font-weight: 700;
+}
+.product-id {
+  color: #7c897e;
+  font-size: 10px;
+  font-family: monospace;
+}
+.badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.badge-pending {
+  background: #fff5df;
+  color: #896116;
+}
+.badge-bought {
+  background: #e8f3e9;
+  color: #317347;
+}
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: 7px;
+}
+.is-bought .product-marker {
+  background: #55936b;
+  border-color: #55936b;
+}
+.is-bought .product-name {
+  color: #748275;
+  text-decoration: line-through;
+}
+.is-bought .button-status {
+  color: #5d6c60;
+  background: #f3f5f1;
+  border-color: #dfe5dc;
+}
+.empty-state {
+  padding: 30px 12px 12px;
+  text-align: center;
+}
+.empty-state h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+}
+.empty-state p {
+  margin: 0;
+  color: #748075;
+  font-size: 13px;
+}
+.page-footer {
+  text-align: center;
+  color: #7a867b;
+  font-size: 11px;
+}
+:focus-visible {
+  outline: 3px solid #2d6d46;
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .container {
+    margin-top: 27px;
+  }
+  .panel {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 31px;
+  }
+  form {
+    flex-wrap: wrap;
+  }
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+  .field-name {
+    flex-basis: 55%;
+  }
+  .field-price {
+    flex: 1;
+  }
+  .button-primary {
+    width: 100%;
+    margin-top: 0;
+  }
+  .product {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+  }
+  .product-actions {
+    margin-left: 25px;
+  }
+}
+@media (max-width: 420px) {
+  .container {
+    width: calc(100% - 28px);
+  }
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+  .field-name,
+  .field-price {
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .product-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+  .product-actions .button {
+    flex: 1;
+  }
+}
+
+.button-reset {
+  align-self: start;
+  margin-top: 25px;
+  min-height: 45px;
+  background: white;
+  color: #526757;
+  border-color: #cbd7cc;
+}
+.button-reset:hover {
+  background: #eff4ed;
+}
+@media (max-width: 700px) {
+  .button-reset {
+    margin-top: 0;
+    width: 100%;
+  }
+}

@@ -10,8 +10,8 @@ const produitsInitiaux = [
   { id: 5, nom: "Œufs", prix: 18, statut: "Acheté" },
   { id: 6, nom: "Riz", prix: 14, statut: "À acheter" },
 ];
-let produits = produitsInitiaux.map((produit) => ({ ...produit }));
-let prochainId = 1;
+// let produits = produitsInitiaux.map((produit) => ({ ...produit }));
+let prochainId = 7;
 
 const formulaire = document.getElementById("formulaire-produit");
 const champNom = document.getElementById("nom");
@@ -47,7 +47,7 @@ function afficherProduits(liste) {
     details.className = "product-meta";
     const prix = document.createElement("span");
     prix.className = "product-price";
-    prix.textContent = produit.prix.toFixed(2) + " DH";
+    prix.textContent = Number(produit.prix).toFixed(2) + " DH";
     const statut = document.createElement("span");
     statut.className = achete ? "badge badge-bought" : "badge badge-pending";
     statut.textContent = produit.statut;
@@ -108,9 +108,10 @@ function ajouterProduit(event) {
   }
   if (!valide) return;
 
-  produits.push({ id: prochainId, nom, prix, statut: "À acheter" });
-  prochainId++;
-  sauvegarderProduits();
+  // produits.push({ id: prochainId, nom, prix, statut: "À acheter" });
+  // prochainId++;
+
+  sauvegarderProduits(nom, prix);
   actualiserAffichage();
   formulaire.reset();
   champNom.focus();
@@ -123,11 +124,35 @@ function modifierStatut(id) {
   // TODO : changer uniquement le statut du bon produit dans les deux sens.
   // Le nom, le prix et l'id ne changent pas.
   // Mettre à jour la sauvegarde et l'affichage selon les critères actifs.
+
+  let FullData = JSON.parse(localStorage.getItem("data"));
+
+  // let ModifiedObjet = 
+  FullData.forEach((data) => {
+    if (data.id === id) {
+      if (data.statut === "Acheté") data.statut = "À acheter";
+      else data.statut = "Acheté";
+    }
+  })
+
+  localStorage.setItem("data", JSON.stringify(FullData));
+
+  actualiserAffichage();
 }
 
 function supprimerProduit(id) {
+
   // TODO : demander confirmation et retirer uniquement le bon produit.
   // Mettre à jour la sauvegarde et l'affichage si la suppression est confirmée.
+  if (confirm("Sur de supprimer ?")) {
+    let FullData = JSON.parse(localStorage.getItem("data"));
+
+    FullData = FullData.filter((data) => data.id != id);
+
+    localStorage.setItem("data", JSON.stringify(FullData));
+  }
+  actualiserAffichage();
+
 }
 
 function appliquerCriteres() {
@@ -136,20 +161,52 @@ function appliquerCriteres() {
   // Modes : initial, croissant et decroissant.
   // Retourner les résultats sans modifier le tableau complet produits.
   // Le retour ci-dessous affiche provisoirement toute la liste.
-  return produits;
+  let data = JSON.parse(localStorage.getItem("data"));
+
+  data = data.filter((d) => d.nom.toLowerCase().startsWith(champRecherche.value.toLowerCase()));
+
+  if (filtreStatut.value !== "tous") data = data.filter(d => d.statut.toLowerCase() === filtreStatut.value.toLowerCase());
+
+  if(triPrix.value !== "initial"){
+    if(triPrix.value === "croissant") data = triInsertioncroissant(data);
+    else data = triInsertionDecroissant(data);
+  }
+
+  return data;
 }
 
 function reinitialiserCriteres() {
   // TODO : vider la recherche, sélectionner tous les produits et l'ordre initial.
   // Actualiser l'affichage, sans modifier les produits ni leur sauvegarde.
+
+  filtreStatut.value = "tous";
+  champRecherche.value = "";
+  triPrix.value = "tous";
+  actualiserAffichage();
 }
 
-function sauvegarderProduits() {
+function sauvegarderProduits(nom, prix) {
   // TODO : sauvegarder le tableau complet produits dans localStorage.
   // Cette fonction est déjà appelée après un ajout.
+
+  prochainId = JSON.parse(localStorage.getItem("prochainId"));
+
+  produits = JSON.parse(localStorage.getItem("data"));
+  produits.push({ id: prochainId, nom: nom, prix: prix, statut: "À acheter" });
+  localStorage.setItem("data", JSON.stringify(produits));
+
+  prochainId++;
+  localStorage.setItem("prochainId", JSON.parse(prochainId));
 }
 
 function chargerProduits() {
+  if (!localStorage.getItem("data")) {
+    localStorage.setItem("data", JSON.stringify(produitsInitiaux));
+  }
+
+  if (!localStorage.getItem("prochainId")) {
+    localStorage.setItem("prochainId", JSON.stringify(prochainId));
+  }
   // TODO : récupérer la sauvegarde dans produits si elle existe.
   // En l'absence de sauvegarde, conserver les données initiales.
   // Une sauvegarde contenant [] doit rester une liste vide.
@@ -168,5 +225,40 @@ document
   .addEventListener("click", reinitialiserCriteres);
 
 chargerProduits();
-prochainId = Math.max(0, ...produits.map((produit) => produit.id)) + 1;
+// prochainId = Math.max(0, ...produits.map((produit) => produit.id)) + 1;
 actualiserAffichage();
+
+
+function triInsertioncroissant(tableau) {
+  for (let i = 1; i < tableau.length; i++) {
+    for (let j = i; j > 0; j--) {
+
+      if (tableau[j].prix < tableau[j - 1].prix) {
+        let temp = tableau[j];
+        tableau[j] = tableau[j - 1];
+        tableau[j - 1] = temp;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return tableau;
+}
+
+function triInsertionDecroissant(tableau) {
+  for (let i = 1; i < tableau.length; i++) {
+    for (let j = i; j > 0; j--) {
+
+      if (tableau[j].prix > tableau[j - 1].prix) {
+        let temp = tableau[j];
+        tableau[j] = tableau[j - 1];
+        tableau[j - 1] = temp;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return tableau;
+}
